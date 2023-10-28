@@ -1,0 +1,12 @@
+server: 
+    port: 9071
+              
+spring: 
+  application:
+    name: SpringBootKafkaProducer
+  
+kafka:
+  topic:
+    send: topic-02
+    receive: topic-03
+
