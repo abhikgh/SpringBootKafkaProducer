@@ -1,6 +1,8 @@
 package com.example.SpringBootKafkaProducer;
 
 import com.example.SpringBootKafkaProducer.producer.KafkaProducer;
+import com.ingka.spe.model.icart.Toy;
+import com.ingka.spe.model.icart.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,9 +20,9 @@ public class SpringBootKafkaProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	//kafkaProducer.sendMessage(new User("11","kdkd","SSE"));
+	kafkaProducer.sendMessage(new User("11","kdkd","SSE"));
 
-	 //kafkaProducer.sendMessage(new Toy("11","Fuju","Bublu"));
+	kafkaProducer.sendMessage(new Toy("11","Fuju","Bublu"));
 
 		kafkaProducer.sendMessage("Hello World Kafka!");
 

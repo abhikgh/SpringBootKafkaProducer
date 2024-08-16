@@ -7,6 +7,6 @@ spring:
   
 kafka:
   topic:
-    send: topic-02
-    receive: topic-03
+    send: topic-20
+    receive: topic-30
 
