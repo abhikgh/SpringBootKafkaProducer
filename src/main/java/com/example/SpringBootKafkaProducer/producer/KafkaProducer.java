@@ -1,6 +1,7 @@
 package com.example.SpringBootKafkaProducer.producer;
 
 
+import com.ingka.spe.model.icart.OrderInput;
 import com.ingka.spe.model.icart.Toy;
 import com.ingka.spe.model.icart.User;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,10 @@ public class KafkaProducer {
     private KafkaTemplate<String, Toy> kafkaToyTemplate;
 
     @Autowired
+    @Qualifier("kafkaOrderTemplate")
+    private KafkaTemplate<String, OrderInput> kafkaOrderTemplate;
+
+    @Autowired
     @Qualifier("kafkaStringTemplate")
     private KafkaTemplate<String, String> kafkaStringTemplate;
 
@@ -53,6 +58,12 @@ public class KafkaProducer {
             String input = object.toString();
             kafkaStringTemplate.send(topicSend, UUID.randomUUID().toString(), input);
             System.out.println("String sent successfully");
+        }
+
+        if (object instanceof OrderInput) {
+            OrderInput orderInput = (OrderInput) object;
+            kafkaOrderTemplate.send(topicSend, UUID.randomUUID().toString(), orderInput);
+            System.out.println("OrderInput sent successfully");
         }
 
     }

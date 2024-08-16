@@ -1,8 +1,10 @@
 package com.example.SpringBootKafkaProducer.consumer;
 
+import com.ingka.spe.model.icart.OrderInput;
 import com.ingka.spe.model.icart.Toy;
 import com.ingka.spe.model.icart.User;
 import lombok.SneakyThrows;
+import org.springframework.core.annotation.Order;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.PartitionOffset;
 import org.springframework.kafka.annotation.TopicPartition;
@@ -40,6 +42,17 @@ public class KafkaConsumer {
         System.out.println("Toy received successfully");
         System.out.println(toy.getToyId()+"---"+toy.getToyName()+"---"+toy.getToyType());
     }
+
+    @SneakyThrows
+    @KafkaListener(
+            topicPartitions = @TopicPartition(topic = "${kafka.topic.receive}",
+                    partitionOffsets = @PartitionOffset(partition = "3" ,initialOffset = "0")),
+            containerFactory = "kafkaOrderListenerContainerFactory", groupId = "group1")
+    public void consumeOrder(@Payload OrderInput orderInput){
+        System.out.println("OrderInput received successfully");
+        System.out.println(orderInput.getOrderId()+"---"+orderInput.getStatus()+"---"+orderInput.getConsumerId());
+    }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.example.SpringBootKafkaProducer.config;
 
 
 import com.example.SpringBootKafkaProducer.partition.KafkaCustomPartitioner;
+import com.ingka.spe.model.icart.OrderInput;
 import com.ingka.spe.model.icart.Toy;
 import com.ingka.spe.model.icart.User;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -28,7 +29,7 @@ public class KafkaConsumerConfig {
     @Bean(name = "kafkaUserListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, User> kafkaUserListenerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<String, User> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
-        JsonDeserializer<User> jsonDeserializer = new JsonDeserializer<User>();
+        JsonDeserializer<User> jsonDeserializer = new JsonDeserializer<>();
         jsonDeserializer.addTrustedPackages("*");
         Map<String, Object> map = new HashMap<>();
         map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -42,7 +43,7 @@ public class KafkaConsumerConfig {
     @Bean(name = "kafkaToyListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, Toy> kafkaToyListenerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<String, Toy> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
-        JsonDeserializer<Toy> jsonDeserializer = new JsonDeserializer<Toy>();
+        JsonDeserializer<Toy> jsonDeserializer = new JsonDeserializer<>();
         jsonDeserializer.addTrustedPackages("*");
         Map<String, Object> map = new HashMap<>();
         map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -56,7 +57,24 @@ public class KafkaConsumerConfig {
     @Bean(name = "kafkaStringListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaStringListenerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<String, String> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
-        ConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), new StringDeserializer(), new StringDeserializer());
+        Map<String, Object> map = new HashMap<>();
+        map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        map.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaCustomPartitioner.class);
+        ConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(map, new StringDeserializer(), new StringDeserializer());
+        concurrentKafkaListenerContainerFactory.setConsumerFactory(consumerFactory);
+        return concurrentKafkaListenerContainerFactory;
+    }
+
+    //JSON OrderInput Deserializer
+    @Bean(name = "kafkaOrderListenerContainerFactory")
+    public ConcurrentKafkaListenerContainerFactory<String, OrderInput> kafkaOrderListenerContainerFactory(){
+        ConcurrentKafkaListenerContainerFactory<String, OrderInput> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
+        JsonDeserializer<OrderInput> jsonDeserializer = new JsonDeserializer<>();
+        jsonDeserializer.addTrustedPackages("*");
+        Map<String, Object> map = new HashMap<>();
+        map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        map.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaCustomPartitioner.class);
+        ConsumerFactory<String, OrderInput> consumerFactory = new DefaultKafkaConsumerFactory<>(map, new StringDeserializer(), jsonDeserializer);
         concurrentKafkaListenerContainerFactory.setConsumerFactory(consumerFactory);
         return concurrentKafkaListenerContainerFactory;
     }
