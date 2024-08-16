@@ -9,4 +9,3 @@ kafka:
   topic:
     send: topic-20
     receive: topic-30
-
