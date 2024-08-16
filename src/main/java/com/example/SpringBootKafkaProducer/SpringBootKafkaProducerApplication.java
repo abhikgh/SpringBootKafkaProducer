@@ -20,9 +20,9 @@ public class SpringBootKafkaProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	//	kafkaProducer.sendMessage(new User("11","kdkd","SSE"));
+	//kafkaProducer.sendMessage(new User("11","kdkd","SSE"));
 
-	//  kafkaProducer.sendMessage(new Toy("11","Fuju","Bublu"));
+	 //kafkaProducer.sendMessage(new Toy("11","Fuju","Bublu"));
 
 		kafkaProducer.sendMessage("Hello World Kafka!");
 
