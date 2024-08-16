@@ -1,8 +1,8 @@
 package com.example.SpringBootKafkaProducer.producer;
 
 
-import com.example.SpringBootKafkaProducer.model.Toy;
-import com.example.SpringBootKafkaProducer.model.User;
+import com.ingka.spe.model.icart.Toy;
+import com.ingka.spe.model.icart.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

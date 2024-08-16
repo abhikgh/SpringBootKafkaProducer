@@ -1,8 +1,8 @@
 package com.example.SpringBootKafkaProducer.partition;
 
 
-import com.example.SpringBootKafkaProducer.model.Toy;
-import com.example.SpringBootKafkaProducer.model.User;
+import com.ingka.spe.model.icart.Toy;
+import com.ingka.spe.model.icart.User;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 

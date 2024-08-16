@@ -1,7 +1,7 @@
 package com.example.SpringBootKafkaProducer.consumer;
 
-import com.example.SpringBootKafkaProducer.model.Toy;
-import com.example.SpringBootKafkaProducer.model.User;
+import com.ingka.spe.model.icart.Toy;
+import com.ingka.spe.model.icart.User;
 import lombok.SneakyThrows;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.PartitionOffset;

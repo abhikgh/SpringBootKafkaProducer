@@ -1,7 +1,5 @@
 package com.example.SpringBootKafkaProducer;
 
-import com.example.SpringBootKafkaProducer.model.Toy;
-import com.example.SpringBootKafkaProducer.model.User;
 import com.example.SpringBootKafkaProducer.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -1,8 +1,10 @@
 package com.example.SpringBootKafkaProducer.config;
 
 
-import com.example.SpringBootKafkaProducer.model.Toy;
-import com.example.SpringBootKafkaProducer.model.User;
+import com.example.SpringBootKafkaProducer.partition.KafkaCustomPartitioner;
+import com.ingka.spe.model.icart.Toy;
+import com.ingka.spe.model.icart.User;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -12,6 +14,9 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class KafkaConsumerConfig {
@@ -25,7 +30,10 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, User> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
         JsonDeserializer<User> jsonDeserializer = new JsonDeserializer<User>();
         jsonDeserializer.addTrustedPackages("*");
-        ConsumerFactory<String, User> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), new StringDeserializer(), jsonDeserializer);
+        Map<String, Object> map = new HashMap<>();
+        map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        map.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaCustomPartitioner.class);
+        ConsumerFactory<String, User> consumerFactory = new DefaultKafkaConsumerFactory<>(map, new StringDeserializer(), jsonDeserializer);
         concurrentKafkaListenerContainerFactory.setConsumerFactory(consumerFactory);
         return concurrentKafkaListenerContainerFactory;
     }
@@ -36,7 +44,10 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, Toy> concurrentKafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
         JsonDeserializer<Toy> jsonDeserializer = new JsonDeserializer<Toy>();
         jsonDeserializer.addTrustedPackages("*");
-        ConsumerFactory<String, Toy> consumerFactory = new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), new StringDeserializer(), jsonDeserializer);
+        Map<String, Object> map = new HashMap<>();
+        map.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        map.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaCustomPartitioner.class);
+        ConsumerFactory<String, Toy> consumerFactory = new DefaultKafkaConsumerFactory<>(map, new StringDeserializer(), jsonDeserializer);
         concurrentKafkaListenerContainerFactory.setConsumerFactory(consumerFactory);
         return concurrentKafkaListenerContainerFactory;
     }
