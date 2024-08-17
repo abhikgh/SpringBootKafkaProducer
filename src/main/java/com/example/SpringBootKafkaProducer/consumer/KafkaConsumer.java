@@ -50,7 +50,7 @@ public class KafkaConsumer {
             containerFactory = "kafkaOrderListenerContainerFactory", groupId = "group1")
     public void consumeOrder(@Payload OrderInput orderInput){
         System.out.println("OrderInput received successfully");
-        System.out.println(orderInput.getOrderId()+"---"+orderInput.getStatus()+"---"+orderInput.getConsumerId());
+        System.out.println(orderInput.getOrderId()+"---"+orderInput.getStatus()+"---"+orderInput.getConsumerId()+"---"+orderInput.getOrderDate()+"---"+orderInput.getOrderStatus());
     }
 
 
