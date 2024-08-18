@@ -1,8 +1,8 @@
 package com.example.SpringBootKafkaProducer.controller;
 
-import com.example.SpringBootKafkaProducer.entity.OrderEntity;
 import com.example.SpringBootKafkaProducer.service.OrderService;
 import com.ingka.spe.model.icart.OrderInput;
+import com.ingka.spe.model.icart.OrderOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +28,7 @@ public class NavController {
         }
      */
     @PostMapping(value = "/updateOrder", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderEntity updateOrder(@RequestBody OrderInput orderInput) {
+    public OrderOutput updateOrder(@RequestBody OrderInput orderInput) {
         return orderService.updateOrder(orderInput);
     }
 }
