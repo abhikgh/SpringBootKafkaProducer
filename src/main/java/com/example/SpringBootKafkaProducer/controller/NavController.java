@@ -20,7 +20,7 @@ public class NavController {
     // http://localhost:9071/kafka/updateOrder
     /*
         {
-            "orderId": "100",
+            "orderId": 100,
             "status": "New",
             "consumerId": "2",
             "orderDate": "2023-03-22",
